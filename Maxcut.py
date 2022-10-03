@@ -1,7 +1,6 @@
 # Maxcut by Ryan McKay (https://github.com/Razo128)
 #   Code based on: https://cloud.dwavesys.com/leap/example-details/222052595/ (https://github.com/dwave-examples/graph-partitioning)
 #             and: https://cloud.dwavesys.com/leap/example-details/222054079/ (https://github.com/dwave-examples/maximum-cut)
-#             and: https://github.com/Razo128/D-Wave/blob/main/Graph_Partitioning.py
 #---------------------------
 # Import necessary packages
 import math
