@@ -17,7 +17,6 @@ from matplotlib import pyplot as plt
 
 # Set tunable parameters
 num_reads = 1000
-chain_strength = 40
 
 # Create and design graph
 G = nx.gnp_random_graph(40, 0.2)
@@ -33,6 +32,9 @@ for u, v in G.edges:
     Q[(u,u)] += -1
     Q[(v,v)] += -1
     Q[(u,v)] += 2
+
+# Set chain strength
+chain_strength = 40
 
 # Run the QUBO on the solver
 sampler = EmbeddingComposite(DWaveSampler())
