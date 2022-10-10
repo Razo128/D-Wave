@@ -18,7 +18,7 @@ num_reads = 1000
 gamma = 10
 
 # Create and design graph
-G = nx.gnp_random_graph(40, 0.2)
+G = nx.gnp_random_graph(40, 0.1)
 
 # Initialize Q matrix
 Q = defaultdict(int)
@@ -58,12 +58,12 @@ lut = response.first.sample
 S0 = [node for node in G.nodes if not lut[node]]
 S1 = [node for node in G.nodes if lut[node]]
 
-print("Included vertices: ", str(S1)) 
+print("Included vertices: ", len(S1), ": ", str(S1)) 
 
 # Display best result
 pos = nx.spring_layout(G)
-nx.draw_networkx_nodes(G, pos, nodelist=S0, node_color='b')
-nx.draw_networkx_nodes(G, pos, nodelist=S1, node_color='r')
+nx.draw_networkx_nodes(G, pos, nodelist=S0, node_color='w')
+nx.draw_networkx_nodes(G, pos, nodelist=S1, node_color='b')
 nx.draw_networkx_edges(G, pos, edgelist=G.edges, style='solid', width=3)
 nx.draw_networkx_labels(G, pos)
 
