@@ -4,6 +4,7 @@
 import math
 import networkx as nx
 from collections import defaultdict
+from itertools import combinations
 from dwave.system.samplers import DWaveSampler
 from dwave.system.composites import EmbeddingComposite
 import dwave.inspector
