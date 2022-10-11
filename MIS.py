@@ -1,4 +1,4 @@
-# Graph Problems by Ryan McKay (https://github.com/Razo128)
+# Maximum Independent Set (MIS) by Ryan McKay (https://github.com/Razo128)
 
 # Import necessary packages
 import math
@@ -43,23 +43,21 @@ Q = defaultdict(int)
 # Fill in Q matrix, using QUBO
 # Objective
 for u in G.nodes:
-    Q[(u,u)] += 1
+    Q[(u,u)] += -1
 
 # Constraint
-for u, v in combinations(G.nodes, 2):
-	  Q[u, v] += gamma # non-disjoint pairs of subsets in R
-     # subsets not in R not connected to any subsets in R
-    
+for u, v in G.edges:
+    Q[u, v] += gamma
 
 # Set chain strength
-chain_strength = 
+chain_strength = gamma
 
 # Run the QUBO on the solver
 sampler = EmbeddingComposite(DWaveSampler())
 response = sampler.sample_qubo(Q,
                                chain_strength=chain_strength,
                                num_reads=num_reads,
-                               label='Example - Graph Problem')
+                               label='MIS')
 
 # See if the best solution found is feasible, and if so print the number of cut edges.
 sample = response.record.sample[0]
@@ -73,17 +71,22 @@ lut = response.first.sample
 
 # Interpret best result in terms of nodes and edges
 S0 = [node for node in G.nodes if not lut[node]]
-S1 = [node for node in G.nodes if lut[node]] # Edit where necessary
+S1 = [node for node in G.nodes if lut[node]]
+num_vert = len(S1)
+ndisjoint = [(u, v) for u, v in S1 if (u,v) in G.edges]
+num_ndisjoint = len(ndisjoint)
 
-print("Set 0: ", str(S0))
-print("Set 1: ", str(S1)) # Edit where necessary
+print("Largest independent set found has a size of: ", num_vert, ", with ", num_ndisjoint, " non-disjoint vertices.")
+print("Maximum independent set: ", str(S1)) 
+print("Non-disjoint set members: ", str(ndisjoint))
 
 # Display best result
 pos = nx.spring_layout(G)
-nx.draw_networkx_nodes()
+nx.draw_networkx_nodes(G, pos, nodelist=S0, node_color='w')
+nx.draw_networkx_nodes(G, pos, nodelist=S1, node_color='r')
 nx.draw_networkx_edges()
 
-filename = "Graph_Problem_plot.png"
+filename = "MIS.png"
 plt.savefig(filename, bbox_inches='tight')
 print("\nYour plot is saved to {}".format(filename))
 
