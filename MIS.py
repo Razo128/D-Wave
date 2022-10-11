@@ -4,7 +4,6 @@
 import math
 import networkx as nx
 from collections import defaultdict
-from itertools import combinations
 from dwave.system.samplers import DWaveSampler
 from dwave.system.composites import EmbeddingComposite
 import dwave.inspector
@@ -17,7 +16,7 @@ import random
 
 # Set tunable parameters
 num_reads = 1000
-gamma = 10
+gamma = 5
 
 # Create array U of elements (integers)
 num_elements = 20
@@ -34,7 +33,7 @@ G = nx.Graph()
 G.add_nodes_from(range(0, num_subsets))
 for i in range(0, num_subsets):
     for j in range(i+1, num_subsets):
-        if len(list(set(V[i]).intersection(set(V[j])))) > 0:
+        if len(list(set(V[i]).intersection(set(V[j]))))>0:
                G.add_edge(i, j)
 
 # Initialize Q matrix
@@ -73,18 +72,15 @@ lut = response.first.sample
 S0 = [node for node in G.nodes if not lut[node]]
 S1 = [node for node in G.nodes if lut[node]]
 num_vert = len(S1)
-ndisjoint = [(u, v) for u, v in S1 if (u,v) in G.edges]
-num_ndisjoint = len(ndisjoint)
 
-print("Largest independent set found has a size of: ", num_vert, ", with ", num_ndisjoint, " non-disjoint vertices.")
+print("Largest independent set found has a size of: ", num_vert)
 print("Maximum independent set: ", str(S1)) 
-print("Non-disjoint set members: ", str(ndisjoint))
 
 # Display best result
 pos = nx.spring_layout(G)
 nx.draw_networkx_nodes(G, pos, nodelist=S0, node_color='w')
 nx.draw_networkx_nodes(G, pos, nodelist=S1, node_color='r')
-nx.draw_networkx_edges()
+nx.draw_networkx_edges(G, pos)
 
 filename = "MIS.png"
 plt.savefig(filename, bbox_inches='tight')
