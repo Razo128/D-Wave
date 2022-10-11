@@ -76,7 +76,7 @@ print("Missing edges: ", missed_edges)
 pos = nx.spring_layout(G)
 nx.draw_networkx_nodes(G, pos, nodelist=S1, node_color='r')
 nx.draw_networkx_edges(G, pos, edgelist=present_edges, style='solid', width=3)
-nx.draw_networkx_labels(G, pos, labellist=S1)
+nx.draw_networkx_labels(G, pos)
 
 filename = "KSize_Clique_plot.png"
 plt.savefig(filename, bbox_inches='tight')
