@@ -60,10 +60,13 @@ S0 = [node for node in G.nodes if not lut[node]]
 S1 = [node for node in G.nodes if lut[node]] # Edit where necessary
 clique_edges = [(u, v) for u, v in G.edges if lut[u]==lut[v]]
 other_edges = [(u, v) for u, v in G.edges if lut[u]!=lut[v]]
-missed_edges= []
+missed_edges = []
+present_edges = []
 for u, v in combinations(S1, 2):
 	if (u, v) not in clique_edges:
 		missed_edges.append((u,v))
+	else:
+		present_edges.append((u,v))
 
 print("A candidate clique of size ", len(S1), "/", K, "was found with ", len(missed_edges), " missing edges.")
 print("Clique set: ", S1)
@@ -72,9 +75,8 @@ print("Missing edges: ", missed_edges)
 # Display best result
 pos = nx.spring_layout(G)
 nx.draw_networkx_nodes(G, pos, nodelist=S1, node_color='r')
-nx.draw_networkx_edges(G, pos, edgelist=clique_edges, style='solid', width=3)
-nx.draw_networkx_edges(G, pos, edgelist=other_edges, style='dashdot', alpha=0.5, width=3)
-nx.draw_networkx_labels(G, pos)
+nx.draw_networkx_edges(G, pos, edgelist=present_edges, style='solid', width=3)
+nx.draw_networkx_labels(G, pos, labellist=S1)
 
 filename = "KSize_Clique_plot.png"
 plt.savefig(filename, bbox_inches='tight')
