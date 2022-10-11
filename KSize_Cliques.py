@@ -71,7 +71,6 @@ print("Missing edges: ", missed_edges)
 
 # Display best result
 pos = nx.spring_layout(G)
-nx.draw_networkx_nodes(G, pos, nodelist=S0, node_color='w')
 nx.draw_networkx_nodes(G, pos, nodelist=S1, node_color='r')
 nx.draw_networkx_edges(G, pos, edgelist=clique_edges, style='solid', width=3)
 nx.draw_networkx_edges(G, pos, edgelist=other_edges, style='dashdot', alpha=0.5, width=3)
