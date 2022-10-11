@@ -35,11 +35,11 @@ for u, v in G.edges:
     Q[(u,v)] += -2
 
 # Constraint
-for i in G.nodes:
-    Q[(i,i)] += gamma*(1-len(G.nodes))
+for u in G.nodes:
+    Q[(u,u)] += gamma*(1-len(G.nodes))
 
-for i, j in combinations(G.nodes, 2):
-    Q[(i,j)] += 2*gamma
+for u, v in combinations(G.nodes, 2):
+    Q[(u,v)] += 2*gamma
 
 # Set chain strength
 chain_strength = gamma*len(G.nodes)
