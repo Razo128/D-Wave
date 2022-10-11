@@ -25,8 +25,8 @@ Q = defaultdict(int)
 
 # Fill in Q matrix, using QUBO
 # Objective
-for i in G.nodes:
-    Q[(i,i)] += 1
+for u in G.nodes:
+    Q[(u,u)] += 1
 
 # Constraint
 for u, v in G.edges:
