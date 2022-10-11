@@ -1,4 +1,4 @@
-# Cliques by Ryan McKay (https://github.com/Razo128)
+# KSize_Cliques by Ryan McKay (https://github.com/Razo128)
 
 # Import necessary packages
 import math
@@ -13,12 +13,15 @@ import matplotlib
 matplotlib.use("agg")
 from matplotlib import pyplot as plt
 
+# Choose K
+K = 10
+
 # Set tunable parameters
-num_reads = 
-gamma = 
+num_reads = 1000
+gamma = K+10
 
 # Create and design graph
-G = nx. 
+G = nx.gnp_random_graph(40, 0.85)
 
 # Initialize Q matrix
 Q = defaultdict(int)
@@ -26,19 +29,17 @@ Q = defaultdict(int)
 # Fill in Q matrix, using QUBO
 # Objective
 for u, v in G.edges:
-    Q[(u,u)] += 
-    Q[(v,v)] += 
-    Q[(u,v)] += 
+    Q[(u,v)] += -1
 
 # Constraint
-for i in G.nodes:
-    Q[(i,i)] += gamma*
+for u in G.nodes:
+    Q[(u,u)] += gamma*(1 - 2*K)
 
-for i, j in combinations(G.nodes, 2):
-	Q[(i,j)] += gamma*
+for u, v in combinations(G.nodes, 2):
+    Q[(u,v)] += gamma*2
 
 # Set chain strength
-chain_strength = 
+chain_strength = 2*gamma*K
 
 # Run the QUBO on the solver
 sampler = EmbeddingComposite(DWaveSampler())
@@ -47,11 +48,8 @@ response = sampler.sample_qubo(Q,
                                num_reads=num_reads,
                                label='Example - Graph Problem')
 
-# See if the best solution found is feasible, and if so print the number of cut edges.
+# See if the best solution found is feasible.
 sample = response.record.sample[0]
-
-# Processing, if necessary
-
 
 # Display results to user
 # Grab best result
@@ -60,16 +58,22 @@ lut = response.first.sample
 # Interpret best result in terms of nodes and edges
 S0 = [node for node in G.nodes if not lut[node]]
 S1 = [node for node in G.nodes if lut[node]] # Edit where necessary
+clique_edges = [(u, v) for u, v in G.edges if lut[u]==lut[v]]
+missed_edges= []
+for u, v in combinations(S1, 2):
+	if (u, v) not in clique_edges:
+		missed_edges.append((u,v))
 
-print("Set 0: ", str(S0))
-print("Set 1: ", str(S1)) # Edit where necessary
+print("A candidate clique of size ", len(S1), "/", K, "was found with ", len(missed_edges), " missing edges.")
+print("Missing edges: ", missed_edges)
 
 # Display best result
 pos = nx.spring_layout(G)
-nx.draw_networkx_nodes()
-nx.draw_networkx_edges()
+nx.draw_networkx_nodes(G, pos, nodelist=S0, node_color='w')
+nx.draw_networkx_nodes(G, pos, nodelist=S1, node_color='r')
+nx.draw_networkx_edges(G, pos)
 
-filename = "Graph_Problem_plot.png"
+filename = "KSize_Clique_plot.png"
 plt.savefig(filename, bbox_inches='tight')
 print("\nYour plot is saved to {}".format(filename))
 
