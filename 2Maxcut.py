@@ -36,7 +36,7 @@ for u, v in G.edges:
     Q[(u,v)] += 2
 
 # Set chain strength
-chain_strength = 40
+chain_strength = len(G.nodes)
 
 # Run the QUBO on the solver
 sampler = EmbeddingComposite(DWaveSampler())
