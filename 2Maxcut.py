@@ -21,7 +21,9 @@ num_reads = 1000
 # Create and design graph
 G = nx.gnp_random_graph(40, 0.2)
 
-print("Graph on {} nodes created with {} out of {} possible edges.".format(len(G.nodes), len(G.edges), len(G.nodes) * (len(G.nodes)-1) / 2))
+print("Graph on {} nodes created with {} out of {} possible edges.".format(len(G.nodes), 
+                                                                           len(G.edges), 
+                                                                           len(G.nodes) * (len(G.nodes)-1) / 2))
 
 # Initialize Q matrix
 Q = defaultdict(int)
