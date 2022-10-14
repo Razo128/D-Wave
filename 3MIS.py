@@ -62,9 +62,6 @@ response = sampler.sample_qubo(Q,
 # See if the best solution found is feasible, and if so print the number of cut edges.
 sample = response.record.sample[0]
 
-# Processing, if necessary
-
-
 # Display results to user
 # Grab best result
 lut = response.first.sample
