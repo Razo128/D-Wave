@@ -25,17 +25,22 @@ Q = defaultdict(int)
 
 # Fill in Q matrix, using QUBO
 # Objective
+for u in G.nodes:
+    Q[(u,u)] += 
+
 for u, v in G.edges:
     Q[(u,u)] += 
     Q[(v,v)] += 
     Q[(u,v)] += 
 
 # Constraint
-for i in G.nodes:
-    Q[(i,i)] += gamma*
+for u in G.nodes:
+    Q[(u,u)] += gamma*
 
-for i, j in combinations(G.nodes, 2):
-	Q[(i,j)] += gamma*
+for u, v in combinations(G.nodes, 2):
+    Q[(u,u)] += gamma*
+    Q[(v,v)] += gamma*
+    Q[(u,v)] += gamma*
 
 # Set chain strength
 chain_strength = 
@@ -45,24 +50,21 @@ sampler = EmbeddingComposite(DWaveSampler())
 response = sampler.sample_qubo(Q,
                                chain_strength=chain_strength,
                                num_reads=num_reads,
-                               label='Example - Graph Problem')
+                               label='Graph Problem')
 
 # See if the best solution found is feasible, and if so print the number of cut edges.
 sample = response.record.sample[0]
-
-# Processing, if necessary
-
 
 # Display results to user
 # Grab best result
 lut = response.first.sample
 
-# Interpret best result in terms of nodes and edges
+# Interpret and process best result in terms of nodes and edges
 S0 = [node for node in G.nodes if not lut[node]]
-S1 = [node for node in G.nodes if lut[node]] # Edit where necessary
+S1 = [node for node in G.nodes if lut[node]] 
 
 print("Set 0: ", str(S0))
-print("Set 1: ", str(S1)) # Edit where necessary
+print("Set 1: ", str(S1)) 
 
 # Display best result
 pos = nx.spring_layout(G)
