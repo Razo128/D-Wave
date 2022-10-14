@@ -41,7 +41,7 @@ sampler = EmbeddingComposite(DWaveSampler())
 response = sampler.sample_qubo(Q,
                                chain_strength=chain_strength,
                                num_reads=num_reads,
-                               label='Example - Maxcut')
+                               label='Maxcut')
 
 # See if the best solution found is feasible, and if so print the number of cut edges.
 sample = response.record.sample[0]
