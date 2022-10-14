@@ -46,7 +46,7 @@ sampler = EmbeddingComposite(DWaveSampler())
 response = sampler.sample_qubo(Q,
                                chain_strength=chain_strength,
                                num_reads=num_reads,
-                               label='Example - Graph Problem')
+                               label='K Size Cliques')
 
 # See if the best solution found is feasible.
 sample = response.record.sample[0]
@@ -55,7 +55,7 @@ sample = response.record.sample[0]
 # Grab best result
 lut = response.first.sample
 
-# Interpret best result in terms of nodes and edges
+# Interpret and process best result in terms of nodes and edges
 S0 = [node for node in G.nodes if not lut[node]]
 S1 = [node for node in G.nodes if lut[node]] # Edit where necessary
 clique_edges = [(u, v) for u, v in G.edges if lut[u]==lut[v]]
