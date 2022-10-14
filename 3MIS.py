@@ -20,11 +20,11 @@ num_reads = 1000
 gamma = 5
 
 # Create array U of elements (integers)
-num_elements = 20
+num_elements = 50
 U = list(range(0, num_elements))
 
 # Create subsets V
-num_subsets = 10
+num_subsets = 40
 V = []
 for i in range(0, num_subsets):
     V.append(sorted(random.sample(range(0, num_elements), random.randint(1, num_elements)))) # some V subsets may be the same
