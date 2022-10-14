@@ -54,7 +54,7 @@ sample = response.record.sample[0]
 # Grab best result
 lut = response.first.sample
 
-# Interpret best result in terms of nodes and edges
+# Interpret and process best result in terms of nodes and edges
 S0 = [node for node in G.nodes if not lut[node]]
 S1 = [node for node in G.nodes if lut[node]]
 
