@@ -1,4 +1,4 @@
-# KSize_Cliques by Ryan McKay (https://github.com/Razo128)
+# K-Size Cliques by Ryan McKay (https://github.com/Razo128)
 
 # Import necessary packages
 import math
