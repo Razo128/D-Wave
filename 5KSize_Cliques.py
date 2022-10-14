@@ -48,7 +48,7 @@ response = sampler.sample_qubo(Q,
                                num_reads=num_reads,
                                label='K Size Cliques')
 
-# See if the best solution found is feasible.
+# Obtain the best run
 sample = response.record.sample[0]
 
 # Display results to user
