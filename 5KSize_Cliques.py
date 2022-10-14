@@ -68,7 +68,8 @@ for u, v in combinations(S1, 2):
 	else:
 		present_edges.append((u,v))
 
-print("A candidate clique of size ", len(S1), "/", K, "was found with ", len(missed_edges), " missing edges.")
+print("A candidate clique of size ", len(S1), "/", K, "was found with ", 
+      len(missed_edges), " missing edges.")
 print("Clique set: ", S1)
 print("Missing edges: ", missed_edges)
 
