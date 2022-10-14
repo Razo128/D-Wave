@@ -51,7 +51,7 @@ response = sampler.sample_qubo(Q,
                                num_reads=num_reads,
                                label='Graph Partitioning')
 
-# See if the best solution found is feasible, and if so print the number of cut edges.
+# Obtain the best run
 sample = response.record.sample[0]
 
 # In the case when n is odd, the set may have one more or one fewer nodes
