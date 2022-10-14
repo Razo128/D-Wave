@@ -44,7 +44,7 @@ response = sampler.sample_qubo(Q,
                                num_reads=num_reads,
                                label='Vertex Cover')
 
-# See if the best solution found is feasible.
+# Obtain the best run
 sample = response.record.sample[0]
 
 # Processing, if necessary
