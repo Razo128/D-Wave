@@ -1,4 +1,4 @@
-# Graph Problems by Ryan McKay (https://github.com/Razo128)
+# Vertex Cover by Ryan McKay (https://github.com/Razo128)
 
 # Import necessary packages
 import math
