@@ -46,7 +46,7 @@ sampler = EmbeddingComposite(DWaveSampler())
 response = sampler.sample_qubo(Q,
                                chain_strength=chain_strength,
                                num_reads=num_reads,
-                               label='K Size Cliques')
+                               label='K-Size Cliques')
 
 # Obtain the best run
 sample = response.record.sample[0]
